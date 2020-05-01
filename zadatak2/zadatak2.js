@@ -1,4 +1,5 @@
 
+//cijene soba u danom formatu
 var pricelist = [
     {from: "2020-01-01", to: "2020-02-01", price: 34.5},
 
@@ -11,8 +12,8 @@ var pricelist = [
 
 function logPricelist(pricelist) {
     let a = {};
-    pricelist.forEach(function(price) {
-        a[price.price] ? a[price.price].push(` ${price.from} do ${price.to}`) : a[price.price] = [`${price.from} do ${price.to}`];
+    pricelist.forEach(function(cijena) {
+        a[cijena.price] ? a[cijena.price].push(` ${cijena.from} do ${cijena.to}`) : a[cijena.price] = [`${cijena.from} do ${cijena.to}`];
     })
 
     //sort
