@@ -1,37 +1,47 @@
 //cijene soba u danom formatu
-var pricelist = [
-    {from: "2020-01-01", to: "2020-02-01", price: 34.5},
+let pricelist = [
+    { from: '2020-01-01', to: '2020-02-01', price: 34.5 },
 
-    {from: "2020-02-02", to: "2020-03-01", price: 37.0},
+    { from: '2020-02-02', to: '2020-03-01', price: 37.0 },
 
-    {from: "2020-03-02", to: "2020-05-15", price: 39.0},
+    { from: '2020-03-02', to: '2020-05-15', price: 39.0 },
 
-    {from: "2020-05-16", to: "2020-06-15", price: 37.0},
-   ];
+    { from: '2020-05-16', to: '2020-06-15', price: 37.0 },
+  ]
+  
+  
+  function logPricelist(cijene) {
+    let a = logPricelist3(cijene)
+    datumiprikaz(a)
+  }
+  
+   function logPricelist2(cijene) {
+    let a = {}
+    cijene.forEach((priceData) => {
+       a[priceData.price] = a[priceData.price] || []
 
-function logPricelist(pricelist) {
-    let a = {};
-    pricelist.forEach(function(cijena) {
-        a[cijena.price] ? a[cijena.price].push(` ${cijena.from} do ${cijena.to}`) : a[cijena.price] = [`${cijena.from} do ${cijena.to}`];
-    })
-
+       a[priceData.price].push([priceData.from, priceData.to])
+     })
     return a
-}
+   }
+  
+   //reduce funkcija
+  function logPricelist3(cijene) {
+    return cijene.reduce((b, priceData) => {
+       b[priceData.price] = b[priceData.price] || []
 
-function logPricelist2(pricelist){
-    return pricelist.reduce((b, cijena) =>{
-        b[cijena.price] = b[cijena.price] || []
-        b[cijena.price].push([cijena.from, cijena.to])
-        return b
-    }, {})
-}
+       b[priceData.price].push([priceData.from, priceData.to])
+       return b
+     }, {})
+   }
+  
+  function datumiprikaz(a) {
+    Object.getOwnPropertyNames(a).sort().forEach((price) => {      
+      let datumiprikaz = a[price].map((from_to) => from_to.join(" do ")).join(" , ")
 
-function prikazPricelist(a){
-    Object.getOwnPropertyNames(a).sort().forEach((price) =>{
-        let datumiprikaz = a[price].map((from_to) => from_to.join("do")).join(" ,")
-        console.log(price, " :", datumiprikaz)
+
+      console.log(price, " : ", datumiprikaz)
     })
-}
-
-
-logPricelist(pricelist)
+  }
+  
+  logPricelist(pricelist)
